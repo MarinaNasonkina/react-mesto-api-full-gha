@@ -10,33 +10,6 @@ const ConflictError = require('../errors/conflict-err');
 
 const { NODE_ENV, JWT_SECRET, CREATED_CODE } = require('../utils/constants');
 
-function login(req, res, next) {
-  const { email, password } = req.body;
-
-  User.findUserByCredentials(email, password)
-    .then((user) => {
-      const token = jwt.sign(
-        { _id: user._id },
-        NODE_ENV === 'production' ? JWT_SECRET : 'dev-secret-key',
-        { expiresIn: '7d' },
-      );
-
-      res.cookie('token', token, {
-        maxAge: 3600000 * 24 * 7,
-        httpOnly: true,
-        sameSite: true,
-      });
-      res.send({ token });
-    })
-    .catch((err) => {
-      if (err instanceof DocumentNotFoundError) {
-        next(new UnauthorizedError('Неправильные почта или пароль'));
-      } else {
-        next(err);
-      }
-    });
-}
-
 function createUser(req, res, next) {
   const {
     email,
@@ -64,6 +37,33 @@ function createUser(req, res, next) {
     .catch((err) => {
       if (err.code === 11000) {
         next(new ConflictError('Пользователь с таким email уже зарегистрирован'));
+      } else {
+        next(err);
+      }
+    });
+}
+
+function login(req, res, next) {
+  const { email, password } = req.body;
+
+  User.findUserByCredentials(email, password)
+    .then((user) => {
+      const token = jwt.sign(
+        { _id: user._id },
+        NODE_ENV === 'production' ? JWT_SECRET : 'dev-secret-key',
+        { expiresIn: '7d' },
+      );
+
+      res.cookie('token', token, {
+        maxAge: 3600000 * 24 * 7,
+        httpOnly: true,
+        sameSite: true,
+      });
+      res.send({ token });
+    })
+    .catch((err) => {
+      if (err instanceof DocumentNotFoundError) {
+        next(new UnauthorizedError('Неправильные почта или пароль'));
       } else {
         next(err);
       }
@@ -141,8 +141,8 @@ function updateAvatar(req, res, next) {
 }
 
 module.exports = {
-  login,
   createUser,
+  login,
   getMe,
   getUsers,
   getUserById,

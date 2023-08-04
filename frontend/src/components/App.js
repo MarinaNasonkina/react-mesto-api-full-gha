@@ -47,30 +47,35 @@ export default function App() {
     setLoggedIn(true);
   }
 
-  function handleSignOut() {
-    localStorage.removeItem('jwt');
-    setEmail('');
-    setLoggedIn(false);
+  function handleLogOut() {
+    auth
+      .logout()
+      .then(() => {
+        setLoggedIn(false);
+        setEmail('');
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   }
 
   function handleTokenCheck() {
-    if (localStorage.getItem('jwt')) {
-      const jwt = localStorage.getItem('jwt');
-
-      auth
-        .checkToken(jwt)
-        .then(({ data }) => {
-          handleLogin(data.email);
-          navigate('/', { replace: true });
-        })
-        .catch((err) => {
-          console.log(err);
-        });
-    }
+    auth
+      .checkToken()
+      .then((user) => {
+        handleLogin(user.email);
+        navigate('/users/me', { replace: true });
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   }
 
   useEffect(() => {
     handleTokenCheck();
+  }, []);
+
+  useEffect(() => {
     if (loggedIn) {
       Promise.all([api.getUserData(), api.getInitialCards()])
         .then(([userData, initialCards]) => {
@@ -197,37 +202,38 @@ export default function App() {
 
   return (
     <CurrentUserContext.Provider value={currentUser}>
-      <Header email={email} onSignOut={handleSignOut} />
+      <Header email={email} onLogOut={handleLogOut} />
       <Routes>
         <Route
-          path='/sign-up'
+          path='/signup'
           element={<Register onRegister={handleRegister} />}
         />
         <Route
-          path='/sign-in' 
+          path='/signin' 
           element={<Login onLogin={handleLogin} />}
         />
         <Route
-          path='/'
-          element={
-            <ProtectedRoute
-              element={Main}
-              loggedIn={loggedIn}
-              cards={cards}
-              onEditAvatar={handleEditAvatarClick}
-              onEditProfile={handleEditProfileClick}
-              onAddPlace={handleAddPlaceClick}
-              onCardClick={handleCardClick}
-              onCardLike={handleCardLike}
-              onCardDeleteClick={handleCardDeleteClick}
-            />
+          path='/users/me'
+          element={loggedIn
+            ? (<ProtectedRoute
+                element={Main}
+                loggedIn={loggedIn}
+                cards={cards}
+                onEditAvatar={handleEditAvatarClick}
+                onEditProfile={handleEditProfileClick}
+                onAddPlace={handleAddPlaceClick}
+                onCardClick={handleCardClick}
+                onCardLike={handleCardLike}
+                onCardDeleteClick={handleCardDeleteClick}
+              />)
+            : (<></>)
           }
         />
         <Route
           path='*'
-          element={loggedIn 
-            ? (<Navigate to='/' replace />) 
-            : (<Navigate to='/sign-in' replace />)
+          element={loggedIn
+            ? (<Navigate to='/users/me' replace />) 
+            : (<Navigate to='/signin' replace />)
           }
         />
       </Routes>

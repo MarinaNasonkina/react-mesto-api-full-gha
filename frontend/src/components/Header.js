@@ -1,16 +1,16 @@
 import { useState } from 'react';
 import { Routes, Route, Link } from 'react-router-dom';
 
-export default function Header({ email, onSignOut }) {
+export default function Header({ email, onLogOut }) {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   function toggleMenu(e) {
     setIsMenuOpen(e.target.checked);
   }
 
-  function closeOnSignOut() {
+  function closeOnLogOut() {
     setIsMenuOpen(false);
-    onSignOut();
+    onLogOut();
   }
 
   return (
@@ -18,37 +18,37 @@ export default function Header({ email, onSignOut }) {
       <div className={`header__menu-top ${isMenuOpen ? 'header__menu-top_opened' : ''}`}>
         <p className='header__email'>{email}</p>
         <Link
-          to='/sign-in'
+          to='/signin'
           className='header__sign-out'
-          onClick={closeOnSignOut}
+          onClick={closeOnLogOut}
         >
           Выйти
         </Link>
       </div>
       <header className='header'>
         <nav className='header__nav'>
-          <Link to='/' aria-label='В свой профиль.'>
+          <Link to='/users/me' aria-label='В свой профиль.'>
             <div className='header__logo'></div>
           </Link>
           <Routes>
             <Route
-              path='/sign-up'
+              path='/signup'
               element={
-                <Link to='/sign-in' className='header__link'>
+                <Link to='/signin' className='header__link'>
                   Войти
                 </Link>
               }
             />
             <Route
-              path='/sign-in'
+              path='/signin'
               element={
-                <Link to='/sign-up' className='header__link'>
+                <Link to='/signup' className='header__link'>
                   Регистрация
                 </Link>
               }
             />
             <Route
-              path='/'
+              path='/users/me'
               element={
                 <>
                   <input
@@ -64,9 +64,9 @@ export default function Header({ email, onSignOut }) {
                   <div className='header__menu'>
                     <p className='header__email'>{email}</p>
                     <Link
-                      to='/sign-in'
+                      to='/signin'
                       className='header__sign-out'
-                      onClick={closeOnSignOut}
+                      onClick={closeOnLogOut}
                     >
                       Выйти
                     </Link>

@@ -17,7 +17,7 @@ export default function Register({ onRegister }) {
       .register(email, password)
       .then(() => {
         onRegister(true);
-        navigate('/sign-in', { replace: true });
+        navigate('/signin', { replace: true });
       })
       .catch((err) => {
         console.log(err);
@@ -38,7 +38,7 @@ export default function Register({ onRegister }) {
           password={password}
           submitText='Зарегистрироваться'
         />
-        <Link to='/sign-in' className='sign-in__link'>
+        <Link to='/signin' className='sign-in__link'>
           Уже зарегистрированы? Войти
         </Link>
       </section>

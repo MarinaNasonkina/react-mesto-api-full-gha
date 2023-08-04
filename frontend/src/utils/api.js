@@ -1,8 +1,8 @@
 class Api {
   constructor(options) {
     this._baseUrl = options.baseUrl;
+    this._credentials = options.credentials;
     this._headers = options.headers;
-    this._token = this._headers.authorization;
   }
 
   _getResponseData(res) {
@@ -13,23 +13,20 @@ class Api {
 
   getUserData() {
     return fetch(`${this._baseUrl}/users/me`, {
-      headers: {
-        authorization: this._token,
-      },
+      credentials: this._credentials,
     }).then(this._getResponseData);
   }
 
   getInitialCards() {
     return fetch(`${this._baseUrl}/cards`, {
-      headers: {
-        authorization: this._token,
-      },
+      credentials: this._credentials,
     }).then(this._getResponseData);
   }
 
   editAvatar(data) {
     return fetch(`${this._baseUrl}/users/me/avatar`, {
       method: 'PATCH',
+      credentials: this._credentials,
       headers: this._headers,
       body: JSON.stringify({
         avatar: data.avatar,
@@ -40,6 +37,7 @@ class Api {
   editUserData(data) {
     return fetch(`${this._baseUrl}/users/me`, {
       method: 'PATCH',
+      credentials: this._credentials,
       headers: this._headers,
       body: JSON.stringify({
         name: data.name,
@@ -51,6 +49,7 @@ class Api {
   addNewCard(data) {
     return fetch(`${this._baseUrl}/cards`, {
       method: 'POST',
+      credentials: this._credentials,
       headers: this._headers,
       body: JSON.stringify({
         name: data.name,
@@ -62,26 +61,22 @@ class Api {
   deleteCard(cardId) {
     return fetch(`${this._baseUrl}/cards/${cardId}`, {
       method: 'DELETE',
-      headers: {
-        authorization: this._token,
-      },
+      credentials: this._credentials,
     }).then(this._getResponseData);
   }
 
   changeLikeStatus(cardId, isLiked) {
     return fetch(`${this._baseUrl}/cards/${cardId}/likes`, {
       method: `${isLiked ? 'DELETE' : 'PUT'}`,
-      headers: {
-        authorization: this._token,
-      },
+      credentials: this._credentials,
     }).then(this._getResponseData);
   }
 }
 
 const api = new Api({
-  baseUrl: 'https://mesto.nomoreparties.co/v1/cohort-65',
+  baseUrl: 'http://localhost:5000',
+  credentials: 'include',
   headers: {
-    authorization: '24c557eb-6f2d-4866-81ae-3b508d0fb910',
     'Content-Type': 'application/json',
   },
 });

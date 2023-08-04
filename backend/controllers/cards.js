@@ -9,7 +9,8 @@ const { CREATED_CODE } = require('../utils/constants');
 
 function getCards(req, res, next) {
   Card.find({})
-    .populate('owner')
+    .populate(['owner', 'likes'])
+    .sort({ createdAt: -1 })
     .then((cards) => res.send(cards))
     .catch(next);
 }

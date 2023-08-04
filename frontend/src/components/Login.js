@@ -17,9 +17,8 @@ export default function Login({ onLogin }) {
       .authorize(email, password)
       .then((res) => {
         if (res.token) {
-          localStorage.setItem('jwt', res.token);
           onLogin(email);
-          navigate('/', { replace: true });
+          navigate('/users/me', { replace: true });
         }
       })
       .catch((err) => {
