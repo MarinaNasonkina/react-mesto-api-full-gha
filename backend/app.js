@@ -9,6 +9,7 @@ const cors = require('cors');
 const auth = require('./middlewares/auth');
 const { validateAuthData, validateUser } = require('./middlewares/validation-joi');
 const centralHandleErr = require('./middlewares/central-handle-err');
+const { requestLogger, errorLogger } = require('./middlewares/logger');
 
 const { login, createUser } = require('./controllers/users');
 const logout = require('./controllers/logout');
@@ -36,6 +37,14 @@ app.use(helmet());
 app.use(limiter);
 app.use(cors(corsOptions));
 
+app.use(requestLogger);
+
+app.get('/crash-test', () => {
+  setTimeout(() => {
+    throw new Error('Сервер сейчас упадёт');
+  }, 0);
+});
+
 app.post('/signin', validateAuthData, login);
 app.post('/signup', validateUser, createUser);
 
@@ -44,6 +53,8 @@ app.post('/logout', logout);
 app.use('/users', users);
 app.use('/cards', cards);
 app.use('*', notFound);
+
+app.use(errorLogger);
 
 app.use(errors());
 app.use(centralHandleErr);
