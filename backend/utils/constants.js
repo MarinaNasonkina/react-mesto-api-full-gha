@@ -9,7 +9,7 @@ const limiter = rateLimit({
 const {
   NODE_ENV,
   JWT_SECRET,
-  PORT = 5000,
+  PORT = 3000,
   DB_URL = 'mongodb://127.0.0.1:27017/mestodb',
 } = process.env;
 
