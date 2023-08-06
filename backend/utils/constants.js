@@ -13,7 +13,11 @@ const {
   DB_URL = 'mongodb://127.0.0.1:27017/mestodb',
 } = process.env;
 
-const allowedCors = ['http://localhost:3000'];
+const allowedCors = [
+  'https://mn-mesto.nomoreparties.co',
+  'http://mn-mesto.nomoreparties.co',
+  'http://localhost:3000',
+];
 
 const corsOptions = { origin: allowedCors, credentials: true };
 

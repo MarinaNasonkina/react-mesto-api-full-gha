@@ -74,7 +74,7 @@ class Api {
 }
 
 const api = new Api({
-  baseUrl: 'http://localhost:5000',
+  baseUrl: 'https://api.mn-mesto.nomoreparties.co',
   credentials: 'include',
   headers: {
     'Content-Type': 'application/json',

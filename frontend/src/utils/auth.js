@@ -1,4 +1,4 @@
-const BASE_URL = 'http://localhost:5000';
+const BASE_URL = 'https://api.mn-mesto.nomoreparties.co';
 
 function checkResOk(res) {
   return res.ok

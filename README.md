@@ -10,11 +10,11 @@
 
 ## Ссылки на проект в сети
 
-IP-адрес x.x.x.x
+IP-адрес 51.250.21.102
 
-Frontend https://...
+Frontend <https://mn-mesto.nomoreparties.co>
 
-Backend https://...
+Backend <https://api.mn-mesto.nomoreparties.co>
 
 ## Описание проекта
 
@@ -44,6 +44,7 @@ Backend https://...
 * Постановка и снятие лайка местам
 * Проверка входящих данных
 * Возвращение ошибок
+* Логирование запросов и ошибок
 
 ### Технологии
 
@@ -56,7 +57,11 @@ Backend https://...
 * **Express**
 * **MongoDB**
 * **Mongoose**
+* **Joi и Celebrate**
+* **Winston**
+* **Cors**
 * **Postman**
 * **Git Branch**
+* **Eslint**
 * **Методология БЭМ**
 * **Работа с макетом в Figma**
