@@ -10,7 +10,7 @@
 
 ## Ссылки на проект в сети
 
-IP-адрес 51.250.21.102
+IP-адрес <51.250.21.102>
 
 Frontend <https://mn-mesto.nomoreparties.co>
 
