@@ -4,18 +4,6 @@
 
 **Mesto - сервис, зарегистрировавшись в котором, можно добавлять фотографии, удалять их и ставить лайки.**
 
-## Ссылка на репозиторий проекта
-
-Посмотреть проект на GitHub можно [здесь](https://github.com/MarinaNasonkina/react-mesto-api-full-gha).
-
-## Ссылки на проект в сети
-
-IP 51.250.21.102
-
-Frontend <https://mn-mesto.nomoreparties.co>
-
-Backend <https://api.mn-mesto.nomoreparties.co>
-
 ## Описание проекта
 
 Данный проект был выполнен в рамках обучения на курсе [«Веб-разработчик»](https://practicum.yandex.ru/web/) от Яндекс.Практикум. Для его разработки требовались знания и навыки преимущественно из пятого и шестого модулей курса.
@@ -65,3 +53,11 @@ Backend <https://api.mn-mesto.nomoreparties.co>
 * **Eslint**
 * **Методология БЭМ**
 * **Работа с макетом в Figma**
+
+## Ссылки на проект в сети (_приостановлено_)
+
+IP 51.250.21.102
+
+Frontend <https://mn-mesto.nomoreparties.co>
+
+Backend <https://api.mn-mesto.nomoreparties.co>

@@ -34,16 +34,11 @@ mongoose.connect(DB_URL, {
 app.use(bodyParser.json());
 app.use(cookieParser());
 app.use(helmet());
-app.use(limiter);
 app.use(cors(corsOptions));
 
 app.use(requestLogger);
 
-app.get('/crash-test', () => {
-  setTimeout(() => {
-    throw new Error('Сервер сейчас упадёт');
-  }, 0);
-});
+app.use(limiter);
 
 app.post('/signin', validateAuthData, login);
 app.post('/signup', validateUser, createUser);
